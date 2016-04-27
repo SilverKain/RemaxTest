@@ -13,137 +13,66 @@ public class TestChicago {
 	public static void main(String[] args) throws IOException, InterruptedException {
 
 	    System.setProperty("webdriver.firefox.bin", "D:\\NewProgram\\Mozilla\\firefox.exe");
-
 	    WebDriver driver = new FirefoxDriver();
-
-	    System.setProperty("webdriver.ie.driver", "C:\\selenium-2.51.0\\IEDriverServer.exe");
-		 
-		String appUrl = "http://www.remax1stclass.com/homes-for-sale";
-		
-		 driver.get(appUrl);
-		 
+	    System.setProperty("webdriver.ie.driver", "C:\\selenium-2.51.0\\IEDriverServer.exe");	 
+		String appUrl = "http://www.remax1stclass.com/homes-for-sale";	
+		 driver.get(appUrl); 
 		 driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		 
-		 
-		 
 		 List <WebElement> ElementCity = driver.findElements(By.className("cityBox"));
-		 
 		 for (int k = 29; k < 33; k++) {
-			 
-			/* String CityNameText = driver.findElement(By.xpath("//div[contains(@class,'cityBox')]/h2")).getText();
-			 
-			 System.out.println(CityNameText);*/
-			 
-			 
-			 ElementCity = driver.findElements(By.className("cityBox"));
-			 
-			 
-		//	 String descriptionTextXPath = "//div[contains(@class, 'cityBox')]/h2";
-
-	
-		//	 WebElement h2Element = driver.FindElement(By.XPath(descriptionTextXPath));
-
-		
-		//	 String CityNameText = h2Element.Text;
-			 
-			 
-			 
-		
-			 
+			 ElementCity = driver.findElements(By.className("cityBox"));			 
 			 ElementCity.get(k).click();
-			 
-			 Thread.sleep(1000);
-			 
-			 String AllCity = driver.findElement(By.className("allCityListingsTotal")).getText();
-			 
-			 int AllCity_int = Integer.parseInt(AllCity);
-			 
-		 
-		 
-			 	String AllCityNum_str = driver.findElement(By.className("allCityListingsTotal")).getText();
-	    
-			 	AllCityNum_str = AllCityNum_str.replaceAll("[^\\d.]", "");
-	    
+			 String actualTitle = driver.getTitle();
+			 Thread.sleep(1000);		 
+			 String AllCity = driver.findElement(By.className("allCityListingsTotal")).getText();		 
+			 int AllCity_int = Integer.parseInt(AllCity);	 
+			 	String AllCityNum_str = driver.findElement(By.className("allCityListingsTotal")).getText(); 
+			 	AllCityNum_str = AllCityNum_str.replaceAll("[^\\d.]", "");  
 			 	int AllCityNum_int = Integer.parseInt(AllCityNum_str);
-
-			 	driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	    
+			 	driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);    
 			 	int AllCityNumByZip_int3 = 0;
-
-			 	List <WebElement> Element = driver.findElements(By.className("zipNameBox"));
-	     	
+			 	List <WebElement> Element = driver.findElements(By.className("zipNameBox"));     	
 			 	for (int j = 0; j < Element.size(); j++) {
-	    	 // for (int k = 29; k < 32; k++) {
-	     		
-				 	Element = driver.findElements(By.className("zipNameBox"));
-		     	    
-				 	Thread.sleep(1000);     	  
-		     	   
-				 	String AllCityNum_str2 = Element.get(j).getText();
-		     	    
+			 		// for (int k = 29; k < 32; k++) {
+				 	Element = driver.findElements(By.className("zipNameBox"));	     	    
+				 	Thread.sleep(1000);     	  	     	   
+				 	String AllCityNum_str2 = Element.get(j).getText();	     	    
 				 	Element.get(j).click();
-	
 				 	String AllCityNum_str1 = driver.findElement(By.className("listingsTotal")).getText();
-	
 				 	AllCityNum_str1 = AllCityNum_str1.replaceAll("[^\\d.]", "");
-	
 				 	int AllCityNum_int1 = Integer.parseInt(AllCityNum_str1);
-	
-				 	List<WebElement> drop = driver.findElements(By.className("zipListingsNum"));
-		  	     
+				 	List<WebElement> drop = driver.findElements(By.className("zipListingsNum"));  	     
 				 	java.util.Iterator<WebElement> i = drop.iterator();
-	
-				 	int AllCityNumByZip_int = 0;
-				 	
+				 	int AllCityNumByZip_int = 0;			 	
 				 	while(i.hasNext()) {
-	
-				 		WebElement row = i.next();   
-	
+					 		WebElement row = i.next();   
 				 		String AllCityNumByZip_str = row.getText().replaceAll("\\p{P}","");
-	
 				 		AllCityNumByZip_int = Integer.parseInt(AllCityNumByZip_str) + AllCityNumByZip_int;
-	
-		 		    }
-		  	     
+		 		    					}     
 				 	if (AllCityNumByZip_int == AllCityNum_int1)  {
-		 		    System.out.println("Compare counts city: zip test: "+AllCityNum_str2+" passed "+AllCityNum_int1+"=="+AllCityNumByZip_int);
-		 		    } else {
-		 		    		System.out.println("Compare counts city: naperville type: zip test: "+AllCityNum_str2+" failed "+AllCityNum_int1+"!="+AllCityNumByZip_int);
+		 		    System.out.println(actualTitle+" zip test: "+AllCityNum_str2+" passed "+AllCityNum_int1+"=="+AllCityNumByZip_int);
+		 		    											 } else {
+		 		    		System.out.println(actualTitle+" zip test: "+AllCityNum_str2+" failed "+AllCityNum_int1+"!="+AllCityNumByZip_int);
 		 		    		}
 				 	AllCityNumByZip_int3 += AllCityNum_int1;
-		  	     
+		     	    Thread.sleep(1000);     	    
+		     	    driver.navigate().back();	     	    
 		     	    Thread.sleep(1000);
-		     	    
-		     	    driver.navigate().back();
-		     	    
-		     	    Thread.sleep(1000);
-				 	}
-		     	
+				 											} // of for (int k = 29; k < 33; k++) 
 				 	if (AllCityNumByZip_int3 == AllCityNum_int)  {
-				 		System.out.println("Compare counts city: naperville type: rent test: passed "+AllCityNumByZip_int3+"=="+AllCityNum_int);
-				 	} else {
-				 		System.out.println("Compare counts city: naperville type: rent test: failed "+AllCityNumByZip_int3+"!="+AllCityNum_int);
-		 	    
-
-	     	
-	} // of for (int k = 29; k < 33; k++) {
-				 	
+				 		System.out.println(actualTitle+" sale test: passed "+AllCityNumByZip_int3+"=="+AllCityNum_int);
+				 												 } else {
+				 		System.out.println(actualTitle+" sale test: failed "+AllCityNumByZip_int3+"!="+AllCityNum_int);
+				 														 } 
+			 		Thread.sleep(1000);    
+			 		driver.navigate().back();	    
 			 		Thread.sleep(1000);
-		     	    
-			 		driver.navigate().back();
-     	    
-			 		Thread.sleep(1000);
-	    	
-	    	if (AllCityNum_int == AllCity_int)  {
-		    	System.out.println("Compare All city: naperville type: rent test: passed "+AllCityNum_int+"=="+AllCity_int);
-			 	} else {
-			 	System.out.println("Compare All city: naperville type: rent test: failed "+AllCityNum_int+"!="+AllCity_int);
-			 	
-			 			}
-		 
-		 		}
+			 		if (AllCityNum_int == AllCity_int)  {
+				    	System.out.println(actualTitle+" all sale test: passed "+AllCityNum_int+"=="+AllCity_int);
+					 	} else {
+					 	System.out.println(actualTitle+" all sale test: failed "+AllCityNum_int+"!="+AllCity_int);
+			 					}    
+		 								}
 	
-	
-	
-										}
-}
+																					}
+						}
