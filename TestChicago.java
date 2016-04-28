@@ -3,13 +3,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.List;
 
 public class TestChicago {
 	
-	@Test
 	public static void main(String[] args) throws IOException, InterruptedException {
 
 	    System.setProperty("webdriver.firefox.bin", "D:\\NewProgram\\Mozilla\\firefox.exe");
@@ -33,7 +31,6 @@ public class TestChicago {
 			 	int AllCityNumByZip_int3 = 0;
 			 	List <WebElement> Element = driver.findElements(By.className("zipNameBox"));     	
 			 	for (int j = 0; j < Element.size(); j++) {
-			 		// for (int k = 29; k < 32; k++) {
 				 	Element = driver.findElements(By.className("zipNameBox"));	     	    
 				 	Thread.sleep(1000);     	  	     	   
 				 	String AllCityNum_str2 = Element.get(j).getText();	     	    
